@@ -12,7 +12,10 @@ $Group "gamedlls"
 {
 	"client"
 	"server"
+<<<<<<< HEAD
 	"gameui2"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 $Group "game"
@@ -23,7 +26,10 @@ $Group "game"
 	"server"
 	"tier1"
 	"vgui_controls"
+<<<<<<< HEAD
 	"gameui2"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 $Group "shaders"
@@ -57,7 +63,10 @@ $Group "everything"
 	"vtfdiff"
 	"vvis_dll"
 	"vvis_launcher"
+<<<<<<< HEAD
 	"gameui2"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 $Group "dedicated"

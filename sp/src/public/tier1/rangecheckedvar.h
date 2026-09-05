@@ -25,16 +25,27 @@ public:
 	~CDisableRangeChecks();
 };
 
+<<<<<<< HEAD
 template< class T >
 inline void RangeCheck( const T &value, int minValue, int maxValue )
 {
 
+=======
+
+template< class T >
+inline void RangeCheck( const T &value, int minValue, int maxValue )
+{
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #ifdef _DEBUG
 	extern bool g_bDoRangeChecks;
 	if ( ThreadInMainThread() && g_bDoRangeChecks )
 	{
 		// Ignore the min/max stuff for now.. just make sure it's not a NAN.
+<<<<<<< HEAD
 		// Assert( _finite( value ) );
+=======
+		Assert( _finite( value ) );
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	}
 #endif
 }

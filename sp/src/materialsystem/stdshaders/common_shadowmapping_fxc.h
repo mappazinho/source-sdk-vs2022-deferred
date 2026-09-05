@@ -453,7 +453,11 @@ float PenumbraSize( float zReceiver, float zBlocker ) //Parallel plane estimatio
 
 float PCFForPCSS4X4( float2 uv, sampler depthMap, float zReceiver, float filterRadiusUV )
 {
+<<<<<<< HEAD
 	float sum = tex2D( depthMap, uv + poissonDisk[0] * filterRadiusUV ) < zReceiver ? 0.0625 : 0;
+=======
+	float sum = tex2D( depthMap, uv + poissonDisk[0] * filterRadiusUV ) > zReceiver ? 0.0625 : 0;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	sum += tex2D( depthMap, uv + poissonDisk[1] * filterRadiusUV ) < zReceiver ? 0.0625 : 0;
 	sum += tex2D( depthMap, uv + poissonDisk[2] * filterRadiusUV ) < zReceiver ? 0.0625 : 0;
 	sum += tex2D( depthMap, uv + poissonDisk[3] * filterRadiusUV ) < zReceiver ? 0.0625 : 0;
@@ -625,7 +629,10 @@ float PerformDualParaboloidShadow( sampler shadowSampler, float3 vecLightToGeome
 float PerformProjectedShadow( sampler shadowSampler, float3 uvw,
 	float4 offsets_0, float4 offset_1, float shadowMin )
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	return max( shadowMin, PerformShadowMapping( shadowSampler, uvw, offsets_0, offset_1 ) );
 }
 

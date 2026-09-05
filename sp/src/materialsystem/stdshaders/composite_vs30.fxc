@@ -5,7 +5,10 @@
 // STATIC:		"EYEVEC"				"0..1"
 // STATIC:		"BASETEXTURE2"			"0..1"
 // STATIC:		"BLENDMODULATE"			"0..1"
+<<<<<<< HEAD
 // STATIC:		"LIGHTMAP"				"0..1"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 // DYNAMIC:		"COMPRESSED_VERTS"		"0..1"
 // DYNAMIC:		"SKINNING"				"0..1"
@@ -14,7 +17,10 @@
 // SKIP:		!$MODEL && $DECAL
 // SKIP:		!$BASETEXTURE2 && $BLENDMODULATE
 // SKIP:		$MODEL && $BASETEXTURE2
+<<<<<<< HEAD
 // SKIP:		$MODEL && $LIGHTMAP
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 #include "common_vs_fxc.h"
 #include "common_deferred_fxc.h"
@@ -66,10 +72,13 @@ struct VS_INPUT
 	
 #else
 
+<<<<<<< HEAD
 #if LIGHTMAP
 	float2 vLightmapCoord			: TEXCOORD1;
 #endif
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #if BASETEXTURE2
 	float4 vColor_0					: COLOR0;
 #endif
@@ -96,10 +105,13 @@ struct VS_OUTPUT
 #if BASETEXTURE2
 	float4 vColor_0					: COLOR0;
 #endif
+<<<<<<< HEAD
 
 #if LIGHTMAP
 	float2 vLightmapCoord			: TEXCOORD4;
 #endif
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 };
 
 VS_OUTPUT main( const VS_INPUT In )
@@ -152,10 +164,13 @@ VS_OUTPUT main( const VS_INPUT In )
 	Out.vColor_0 = In.vColor_0;
 #endif
 
+<<<<<<< HEAD
 #if LIGHTMAP
 	Out.vLightmapCoord = In.vLightmapCoord;
 #endif
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #if BLENDMODULATE
 	Out.vTexCoord.zw = GetTransformedUVs( In.vTexCoord_0, flBlendModTransform );
 #endif

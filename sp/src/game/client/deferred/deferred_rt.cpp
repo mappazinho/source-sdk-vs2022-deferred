@@ -88,6 +88,7 @@ const ImageFormat fmt_gbuffer0 =
 	const ImageFormat fmt_projVGUI = IMAGE_FORMAT_RGB888;
 
 // causes broken shadows on particles
+<<<<<<< HEAD
 	// 2-10-2026 = setting to true fixed shadows not appearing...
 	const bool bShadowUseColor = true;
 
@@ -97,6 +98,14 @@ const ImageFormat fmt_gbuffer0 =
  #else
  		false;
  #endif
+=======
+	const bool bShadowUseColor = false;
+// #ifdef SHADOWMAPPING_USE_COLOR
+// 		true;
+// #else
+// 		false;
+// #endif
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	const ImageFormat fmt_depth = GetDeferredManager()->GetShadowDepthFormat();
 	const ImageFormat fmt_depthColor = bShadowUseColor ? IMAGE_FORMAT_R32F

@@ -14,8 +14,13 @@ $Configuration
 {
 	$Compiler
 	{
+<<<<<<< HEAD
 		$AdditionalIncludeDirectories	"$SRCDIR\game\gameui2;.\hl2;.\hl2\elements;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;..\..\public;$BASE"
 		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC;GAMEUI2"
+=======
+		$AdditionalIncludeDirectories	".\hl2;.\hl2\elements;$SRCDIR\game\shared\hl2;$SRCDIR\game\shared\episodic;..\..\public;$BASE"
+		$PreprocessorDefinitions		"$BASE;HL2_CLIENT_DLL;HL2_EPISODIC"
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	}
 }
 

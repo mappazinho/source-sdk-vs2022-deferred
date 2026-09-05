@@ -18,7 +18,11 @@
  * 0 - DISABLE packing, gbuffer 0 at 3 bytes, gbuffer 2 at 4 bytes, less expensive math
  * 1 - ENABLE packing, gbuffer 0 at 4 bytes, gbuffer 2 disabled, more expensive math
  */
+<<<<<<< HEAD
 #define DEFCFG_LIGHTCTRL_PACKING 0
+=======
+#define DEFCFG_LIGHTCTRL_PACKING 1
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 
 /* Toggles compression for light accumulation buffer
@@ -230,8 +234,11 @@
 #endif
 #define VOLUMTWEAK_INTENSITY_POINT 1.0f
 #define VOLUMTWEAK_INTENSITY_SPOT 0.5f
+<<<<<<< HEAD
 #define VOLUMTWEAK_MAX_LUMA_POINT 0.35f
 #define VOLUMTWEAK_MAX_LUMA_SPOT 0.35f
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 /* Global hard coded filter tweaks
  */
@@ -298,4 +305,8 @@ static const int NUM_PROJECTABLE_VGUI = NUM_COOKIE_SLOTS;
 #	define MAX_SHADOW_ORTHO 1
 #endif
 
+<<<<<<< HEAD
 #endif
+=======
+#endif
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

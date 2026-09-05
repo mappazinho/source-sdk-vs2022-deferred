@@ -171,18 +171,29 @@ int SharedRandomInt( const char *sharedname, int iMinVal, int iMaxVal, int addit
 
 Vector SharedRandomVector( const char *sharedname, float minVal, float maxVal, int additionalSeed /*=0*/ )
 {
+<<<<<<< HEAD
 #pragma warning(disable : 4459)
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	Assert( CBaseEntity::GetPredictionRandomSeed() != -1 );
 
 	int seed = SeedFileLineHash( CBaseEntity::GetPredictionRandomSeed(), sharedname, additionalSeed );
 	RandomSeed( seed );
 	// HACK:  Can't call RandomVector/Angle because it uses rand() not vstlib Random*() functions!
 	// Get a random vector.
+<<<<<<< HEAD
 	Vector random;
 	random.x = RandomFloat( minVal, maxVal );
 	random.y = RandomFloat( minVal, maxVal );
 	random.z = RandomFloat( minVal, maxVal );
 	return random;
+=======
+	Vector randvec;
+	randvec.x = RandomFloat( minVal, maxVal );
+	randvec.y = RandomFloat( minVal, maxVal );
+	randvec.z = RandomFloat( minVal, maxVal );
+	return randvec;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 QAngle SharedRandomAngle( const char *sharedname, float minVal, float maxVal, int additionalSeed /*=0*/ )
@@ -194,11 +205,19 @@ QAngle SharedRandomAngle( const char *sharedname, float minVal, float maxVal, in
 
 	// HACK:  Can't call RandomVector/Angle because it uses rand() not vstlib Random*() functions!
 	// Get a random vector.
+<<<<<<< HEAD
 	Vector random;
 	random.x = RandomFloat( minVal, maxVal );
 	random.y = RandomFloat( minVal, maxVal );
 	random.z = RandomFloat( minVal, maxVal );
 	return QAngle( random.x, random.y, random.z );
+=======
+	QAngle randang;
+	randang.x = RandomFloat( minVal, maxVal );
+	randang.y = RandomFloat( minVal, maxVal );
+	randang.z = RandomFloat( minVal, maxVal );
+	return randang;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 
@@ -1176,6 +1195,7 @@ const char* UTIL_GetActiveHolidayString()
 	return NULL;
 #endif
 }
+<<<<<<< HEAD
 
 #if defined (NEW_LOADING_SCREENS) // Obsidian Conflict Team code
 std::string UTIL_GetCurrentMap(bool bFullPath)
@@ -1214,3 +1234,5 @@ std::string UTIL_GetCurrentMap(bool bFullPath)
 	return sMap;
 }
 #endif
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

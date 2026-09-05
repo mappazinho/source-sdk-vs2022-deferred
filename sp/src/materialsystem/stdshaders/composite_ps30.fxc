@@ -19,7 +19,10 @@
 // STATIC:		"SELFILLUM_ENVMAP_ALPHA"	"0..1"
 
 // STATIC:		"PARALLAXCORRECT"			"0..1"
+<<<<<<< HEAD
 // STATIC:		"LIGHTMAP"					"0..1"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 // DYNAMIC:		"PIXELFOGTYPE"		"0..1"
 
@@ -38,7 +41,10 @@
 
 // SKIP:		!$ENVMAP && $PARALLAXCORRECT
 // SKIP:		$MODEL && $PARALLAXCORRECT
+<<<<<<< HEAD
 // SKIP:		$MODEL && $LIGHTMAP
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 // SKIP:		!$SELFILLUM && $SELFILLUM_MASK
 // SKIP:		!$SELFILLUM && $SELFILLUM_ENVMAP_ALPHA
@@ -114,11 +120,14 @@ sampler sSelfIllumMask						: register( s4 ); // override envmap mask
 #endif
 #endif
 
+<<<<<<< HEAD
 #if LIGHTMAP
 sampler sLightmap							: register( s8 );
 const float g_flLightmapScale				: register( c16 );
 #endif
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 struct PS_INPUT
 {
 #if BLENDMODULATE
@@ -143,10 +152,13 @@ struct PS_INPUT
 #endif
 
 	float2 vScreenPos				: VPOS;
+<<<<<<< HEAD
 
 #if LIGHTMAP
 	float2 vLightmapCoord			: TEXCOORD4;
 #endif
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 };
 
 
@@ -186,12 +198,15 @@ PS_OUTPUT main( const PS_INPUT In )
 
 	float4 flLighting = ReadLighting( tex2D( sLightAccum, screenPos ) );
 
+<<<<<<< HEAD
 #if LIGHTMAP
 	// Blend VRAD lightmap as ambient/GI base layer
 	float3 lightmapColor = tex2D( sLightmap, In.vLightmapCoord.xy ).rgb;
 	flLighting.rgb += lightmapColor * g_flLightmapScale;
 #endif
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #if READNORMAL
 	float3 worldNormal = tex2D( sNormals, screenPos ).xyz * 2.0f - 1.0f;
 #endif

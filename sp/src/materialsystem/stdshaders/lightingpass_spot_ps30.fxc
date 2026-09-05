@@ -254,6 +254,7 @@ PS_OUTPUT main( const PS_INPUT In )
 			depthPos, g_vecShadowMappingTweaks_0, g_vecShadowMappingTweaks_1,
 			g_flMixedData[ iDataIndex + 4 ].x );
 
+<<<<<<< HEAD
 #if VENDOR == VENDOR_FXC_AMD
 		float3 AMDVec2 = abs( floor( depthPos.xyz ) );
 		float AMDAmt2 = AMDVec2.x + AMDVec2.y + AMDVec2.z;
@@ -263,6 +264,8 @@ PS_OUTPUT main( const PS_INPUT In )
 		localLight.w *= 1.0f - any( floor( depthPos.xyz ) );
 #endif
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		flLight += DoLightFinal( g_flMixedData[ iDataIndex + 1 ].xyz,
 			g_flMixedData[ iDataIndex + 2 ].xyz,
 			localLight );

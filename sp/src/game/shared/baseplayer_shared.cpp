@@ -229,6 +229,7 @@ void CBasePlayer::ItemPostFrame()
 {
 	VPROF( "CBasePlayer::ItemPostFrame" );
 
+<<<<<<< HEAD
 	// BUG: stops soundscapes and other playing sounds, using implementation in c_basehlplayer.cpp instead
 /*	// menu music
 
@@ -257,6 +258,8 @@ void CBasePlayer::ItemPostFrame()
 #endif
 */
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	// Put viewmodels into basically correct place based on new player origin
 	CalcViewModelView( EyePosition(), EyeAngles() );
 

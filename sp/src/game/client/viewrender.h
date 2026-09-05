@@ -349,10 +349,13 @@ public:
 
 	void			AddViewToScene( CRendering3dView *pView ) { m_SimpleExecutor.AddView( pView ); }
 protected:
+<<<<<<< HEAD
 	bool m_HasPrevViewSetup;
 	CViewSetup m_PrevViewSetup;
 	void			GetSmoothedView( const CViewSetup &view, CViewSetup &pSmoothedView );
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	// Sets up the view parameters for all views (left, middle and right eyes).
     void            SetUpViews();
 
@@ -396,7 +399,11 @@ public:
 
 	// Render functions
 	virtual	void	Render( vrect_t *rect );
+<<<<<<< HEAD
 	virtual void	RenderView( const CViewSetup &tmpview, int nClearFlags, int whatToDraw );
+=======
+	virtual void	RenderView( const CViewSetup &view, int nClearFlags, int whatToDraw );
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	virtual void	RenderPlayerSprites();
 	virtual void	Render2DEffectsPreHUD( const CViewSetup &view );
 	virtual void	Render2DEffectsPostHUD( const CViewSetup &view );
@@ -460,7 +467,12 @@ public:
 		m_UnderWaterOverlayMaterial.Init( pMaterial );
 	}
 protected:
+<<<<<<< HEAD
 	int	m_BuildWorldListsNumber;
+=======
+	int				m_BuildWorldListsNumber;
+
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	// General draw methods
 	// baseDrawFlags is a combination of DF_ defines. DF_MONITOR is passed into here while drawing a monitor.

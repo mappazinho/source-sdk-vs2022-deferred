@@ -11,7 +11,10 @@
 #include "c_ai_basenpc.h"
 #include "in_buttons.h"
 #include "collisionutils.h"
+<<<<<<< HEAD
 #include "engine/ienginesound.h"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -627,6 +630,7 @@ void C_BaseHLPlayer::PerformClientSideNPCSpeedModifiers( float flFrameTime, CUse
 //-----------------------------------------------------------------------------
 bool C_BaseHLPlayer::CreateMove( float flInputSampleTime, CUserCmd *pCmd )
 {
+<<<<<<< HEAD
 	// proper implementation of pause menu ambience
 	static bool playMusic = false;
 	static bool isFading = false;
@@ -697,6 +701,8 @@ bool C_BaseHLPlayer::CreateMove( float flInputSampleTime, CUserCmd *pCmd )
 			}
 		}
 	}
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	bool bResult = BaseClass::CreateMove( flInputSampleTime, pCmd );
 
 	if ( !IsInAVehicle() )

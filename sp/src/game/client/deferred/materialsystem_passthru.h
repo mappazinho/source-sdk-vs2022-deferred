@@ -22,16 +22,22 @@ public:
 	CPassThruMaterialSystem()
 	{
 		m_pBaseMaterialsPassThru = NULL;
+<<<<<<< HEAD
 		m_bRequestOneLightmapRedownload = true;
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	}
 	virtual void InitPassThru( IMaterialSystem *pBaseMaterialsPassThru )
 	{
 		m_pBaseMaterialsPassThru = pBaseMaterialsPassThru;
 	}
+<<<<<<< HEAD
 	void MarkLevelLoadForOneLightmapRedownload()
 	{
 		m_bRequestOneLightmapRedownload = true;
 	}
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 public:
 	virtual bool Connect( CreateInterfaceFn factory ) { return m_pBaseMaterialsPassThru->Connect( factory ); }
@@ -60,6 +66,7 @@ public:
 	virtual void				ExecuteQueued() { m_pBaseMaterialsPassThru->ExecuteQueued(); }
 
 	virtual IMaterialSystemHardwareConfig *GetHardwareConfig( const char *pVersion, int *returnCode ) { return m_pBaseMaterialsPassThru->GetHardwareConfig( pVersion, returnCode ); }
+<<<<<<< HEAD
 	
 	// CRASH!! skip base call and temporarily return true immediately from UpdateConfig without calling the base function
 	virtual bool				UpdateConfig( bool bForceUpdate ) 
@@ -90,6 +97,10 @@ public:
 
 		return false;
 	}
+=======
+
+	virtual bool				UpdateConfig( bool bForceUpdate ) { return m_pBaseMaterialsPassThru->UpdateConfig( bForceUpdate ); }
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	virtual bool				OverrideConfig( const MaterialSystem_Config_t &config, bool bForceUpdate ) { return m_pBaseMaterialsPassThru->OverrideConfig( config, bForceUpdate ); }
 
@@ -393,7 +404,10 @@ public:
 
 protected:
 	IMaterialSystem * m_pBaseMaterialsPassThru;
+<<<<<<< HEAD
 	bool m_bRequestOneLightmapRedownload;
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 };
 
 class CDeferredMaterialSystem : public CPassThruMaterialSystem
@@ -416,4 +430,8 @@ private:
 	IMaterial * ReplaceMaterialInternal( IMaterial* pMat ) const;
 };
 
+<<<<<<< HEAD
 #endif // WARS_MATERIALSYSTEM_PASSTHRU_H
+=======
+#endif // WARS_MATERIALSYSTEM_PASSTHRU_H
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

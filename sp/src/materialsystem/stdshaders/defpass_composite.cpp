@@ -9,7 +9,10 @@
 static CCommandBufferBuilder< CFixedCommandStorageBuffer< 512 > > tmpBuf;
 
 ConVar building_cubemaps( "building_cubemaps", "0" );
+<<<<<<< HEAD
 ConVar r_deferred_use_lightmaps( "r_deferred_use_lightmaps", "1", FCVAR_ARCHIVE, "Blend VRAD lightmaps with deferred lighting" );
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 void InitParmsComposite( const defParms_composite &info, CBaseVSShader *pShader, IMaterialVar **params )
 {
@@ -86,8 +89,11 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 	const bool bRimLightModLight = bRimLight && PARM_SET( info.iRimlightModLight );
 	const bool bBlendmodulate = bAlbedo2 && PARM_TEX( info.iBlendmodulate );
 
+<<<<<<< HEAD
 	const bool bLightmap = !bModel && r_deferred_use_lightmaps.GetBool();
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	const bool bSelfIllum = !bAlbedo2 && IS_FLAG_SET( MATERIAL_VAR_SELFILLUM );
 	const bool bSelfIllumMaskInEnvmapMask = bSelfIllum && bEnvmapMask && PARM_SET( info.iSelfIllumMaskInEnvmapAlpha );
 	const bool bSelfIllumMask = bSelfIllum && !bSelfIllumMaskInEnvmapMask && !bEnvmapMask && PARM_TEX( info.iSelfIllumMask );
@@ -122,6 +128,7 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 		int iTexCoordNum;
 		GetTexcoordSettings( ( bModel && bIsDecal && bFastVTex ), iTexCoordNum, &pTexCoordDim );
 
+<<<<<<< HEAD
 		// Override texcoord settings for lightmap UVs
 		// Default iDimDefault is {2, 0, 3} which gives TEXCOORD1 dimension 0 (disabled).
 		// We need TEXCOORD1 to be 2D for lightmap UVs.
@@ -132,6 +139,8 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 			iTexCoordNum = 2;
 		}
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		if ( bModel )
 		{
 			iVFmtFlags |= VERTEX_NORMAL;
@@ -189,6 +198,7 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 				pShaderShadow->EnableTexture( SHADER_SAMPLER6, true );
 		}
 
+<<<<<<< HEAD
 		if ( bLightmap )
 		{
 			pShaderShadow->EnableTexture( SHADER_SAMPLER8, true );
@@ -198,6 +208,8 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 				pShaderShadow->EnableSRGBRead( SHADER_SAMPLER8, false );
 		}
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		pShaderShadow->EnableAlphaWrites( false );
 		pShaderShadow->EnableDepthWrites( !bTranslucent );
 
@@ -212,7 +224,10 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 		SET_STATIC_VERTEX_SHADER_COMBO( EYEVEC, bWorldEyeVec );
 		SET_STATIC_VERTEX_SHADER_COMBO( BASETEXTURE2, bAlbedo2 );
 		SET_STATIC_VERTEX_SHADER_COMBO( BLENDMODULATE, bBlendmodulate );
+<<<<<<< HEAD
 		SET_STATIC_VERTEX_SHADER_COMBO( LIGHTMAP, bLightmap );
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		SET_STATIC_VERTEX_SHADER( composite_vs30 );
 
 		DECLARE_STATIC_PIXEL_SHADER( composite_ps30 );
@@ -232,7 +247,10 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 		SET_STATIC_PIXEL_SHADER_COMBO( SELFILLUM_MASK, bSelfIllumMask );
 		SET_STATIC_PIXEL_SHADER_COMBO( SELFILLUM_ENVMAP_ALPHA, bSelfIllumMaskInEnvmapMask );
 		SET_STATIC_PIXEL_SHADER_COMBO( PARALLAXCORRECT, bEnvmapCorrection );
+<<<<<<< HEAD
 		SET_STATIC_PIXEL_SHADER_COMBO( LIGHTMAP, bLightmap );
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		SET_STATIC_PIXEL_SHADER( composite_ps30 );
 	}
 	DYNAMIC_STATE
@@ -365,6 +383,7 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 
 		pShader->BindTexture( SHADER_SAMPLER2, GetDeferredExt()->GetTexture_LightAccum() );
 
+<<<<<<< HEAD
 		if ( bLightmap )
 		{
 			pShaderAPI->BindStandardTexture( SHADER_SAMPLER8, TEXTURE_LIGHTMAP );
@@ -373,6 +392,8 @@ void DrawPassComposite( const defParms_composite &info, CBaseVSShader *pShader, 
 			pShaderAPI->SetPixelShaderConstant( 16, flLightmapScale );
 		}
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		CommitBaseDeferredConstants_Origin( pShaderAPI, 3 );
 
 		if ( bWorldEyeVec )

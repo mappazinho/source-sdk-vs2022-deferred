@@ -139,6 +139,7 @@ void CDeferredManagerServer::LevelInitPreEntity()
 	if ( V_stristr( entStr, "light_deferred_global" ) )
 		return;
 
+<<<<<<< HEAD
 	if ( !g_pFullFileSystem )
 	{
 		Warning( "DeferredManager: g_pFullFileSystem is NULL! Trying fallback...\n" );
@@ -156,6 +157,8 @@ void CDeferredManagerServer::LevelInitPreEntity()
 		}
 	}
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	const FileHandle_t hFile = g_pFullFileSystem->Open(MapName(), "rb");
 	if ( !hFile )
 		return;

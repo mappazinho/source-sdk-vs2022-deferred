@@ -7,7 +7,10 @@
 //=============================================================================
 
 #include "lightmappedgeneric_dx9_helper.h"
+<<<<<<< HEAD
 #include "deferred_includes.h"
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #include "BaseVSShader.h"
 #include "commandbuilder.h"
 #include "convar.h"
@@ -35,8 +38,11 @@ public:
 	bool m_bFullyOpaque;
 	bool m_bFullyOpaqueWithoutAlphaTest;
 
+<<<<<<< HEAD
 	CDeferredPerMaterialContextData m_DeferredContext;
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	void ResetStaticCmds( void )
 	{
 		if ( m_pStaticCmds )
@@ -287,6 +293,7 @@ void DrawLightmappedGeneric_DX9_Internal(CBaseVSShader *pShader, IMaterialVar** 
 								 )
 {
 	CLightmappedGeneric_DX9_Context *pContextData = reinterpret_cast< CLightmappedGeneric_DX9_Context *> ( *pContextDataPtr );
+<<<<<<< HEAD
 
 	if ( ! pContextData )								// make sure allocated
 	{
@@ -311,6 +318,8 @@ void DrawLightmappedGeneric_DX9_Internal(CBaseVSShader *pShader, IMaterialVar** 
 		return;
 	}
 
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	if ( pShaderShadow || ( ! pContextData ) || pContextData->m_bMaterialVarsChanged  || hasFlashlight )
 	{
 		bool hasBaseTexture = params[info.m_nBaseTexture]->IsTexture();
@@ -321,13 +330,19 @@ void DrawLightmappedGeneric_DX9_Internal(CBaseVSShader *pShader, IMaterialVar** 
 		bool bFullyOpaque = bFullyOpaqueWithoutAlphaTest && !bIsAlphaTested;
 		bool bNeedRegenStaticCmds = (! pContextData ) || pShaderShadow;
 
+<<<<<<< HEAD
 		/* // Already allocated above
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 		if ( ! pContextData )								// make sure allocated
 		{
 			pContextData = new CLightmappedGeneric_DX9_Context;
 			*pContextDataPtr = pContextData;
 		}
+<<<<<<< HEAD
 		*/
+=======
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 		bool hasBump = ( params[info.m_nBumpmap]->IsTexture() ) && ( !g_pHardwareConfig->PreferReducedFillrate() );
 		bool hasSSBump = hasBump && (info.m_nSelfShadowedBumpFlag != -1) &&	( params[info.m_nSelfShadowedBumpFlag]->GetIntValue() );

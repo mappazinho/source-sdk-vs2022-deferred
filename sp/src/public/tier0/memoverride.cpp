@@ -1265,12 +1265,20 @@ wchar_t * __cdecl _wcsdup_dbg ( const wchar_t * string, int nBlockUse, const cha
 	return 0;
 }
 
+<<<<<<< HEAD
 /* wchar_t* __cdecl _wcsdup(const wchar_t* string)
+=======
+wchar_t * __cdecl _wcsdup ( const wchar_t * string )
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 {
 	Assert(0);
 	return 0;
 }
+<<<<<<< HEAD
 */
+=======
+
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 } // end extern "C"
 
 #if _MSC_VER >= 1400

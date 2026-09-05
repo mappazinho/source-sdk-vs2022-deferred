@@ -11,6 +11,11 @@
 
 #include "tier0/memdbgon.h"
 
+<<<<<<< HEAD
+=======
+ConVar r_deferred_light_visleaf_cull( "r_deferred_light_visleaf_cull", "1", 0, "Culling based on map visleaves - buggy, improves performance" );
+
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 static CLightingManager __g_lightingMan;
 
 CLightingManager* GetLightingManager()
@@ -435,9 +440,40 @@ void CLightingManager::CullLights()
 		if ( !m_bDrawWorldLights && l->bWorldLight )
 			continue;
 
+<<<<<<< HEAD
 		Vector veclightDelta = l->boundsCenter - m_vecViewOrigin;
 		l->flDistance_ViewOrigin = veclightDelta.Length();
 		l->flShadowFade          = 0.0f;
+=======
+		// FIXME: inaccurate with e.g. angled lights, causes popping - performance impact when disabled
+		if ( !render->AreAnyLeavesVisible( l->iLeaveIDs, l->iNumLeaves ) && r_deferred_light_visleaf_cull.GetBool() )
+			continue;
+
+		// if the optimized bounds cause popping for you, use the naive ones or
+		// ...improve the optimization code
+		if( !engine->IsBoxInViewCluster( l->bounds_min_naive, l->bounds_max_naive ) )
+			continue;
+
+		if ( engine->CullBox( l->bounds_min_naive, l->bounds_max_naive ) )
+		//if ( engine->CullBox( l->bounds_min, l->bounds_max ) )
+			continue;
+
+		// if ( l->IsSpot() && l->HasShadow() )
+		// {
+		// 	if ( IntersectFrustumWithFrustum( m_matScreenToWorld, l->spotMVPInv ) )
+		// 		continue;
+		// }
+
+		Vector veclightDelta = l->boundsCenter - m_vecViewOrigin;
+
+		if ( veclightDelta.LengthSqr() > l->flMaxDistSqr )
+			continue;
+
+		l->flDistance_ViewOrigin = veclightDelta.Length();
+		l->flShadowFade          = l->HasShadow()
+			                           ? ( SATURATE( ( l->flDistance_ViewOrigin - l->iShadow_Dist ) / l->iShadow_Range ) )
+			                           : 1.0f;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 		m_hRenderLights.AddToTail( l );
 	}
@@ -684,7 +720,12 @@ FORCEINLINE int CLightingManager::WriteLight( def_light_t* l, float* pfl4 )
 	int numConsts = 0;
 
 	const float flLightstyle = DoLightStyle( l );
+<<<<<<< HEAD
 	const float flMasterFade = flLightstyle;
+=======
+	const float flDistance   = l->flDistance_ViewOrigin;
+	const float flMasterFade = flLightstyle * ( 1.0f - SATURATE( ( flDistance - l->iVisible_Dist ) / l->iVisible_Range ) );
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	const int iFloatSize = sizeof( float );
 
@@ -1072,7 +1113,11 @@ void CLightingManager::RenderLights( const CViewSetup& view, CDeferredViewRender
 					data.iLOD = iVolumeLOD;
 #endif
 #if DEFCFG_CONFIGURABLE_VOLUMETRIC_LOD
+<<<<<<< HEAD
 						data.iSamples = Max( 1, entry.pLight->iVolumeSamples );
+=======
+						data.iSamples = entry.pLight->iVolumeSamples;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #endif
 						QUEUE_FIRE( CommitVolumeData, data );
 
@@ -1248,7 +1293,11 @@ void CLightingManager::RenderLights( const CViewSetup& view, CDeferredViewRender
 				data.iLOD = iVolumeLOD;
 #endif
 #if DEFCFG_CONFIGURABLE_VOLUMETRIC_LOD
+<<<<<<< HEAD
 				data.iSamples = Max( 1, l->iVolumeSamples );
+=======
+				data.iSamples = l->iVolumeSamples;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #endif
 				QUEUE_FIRE( CommitVolumeData, data );
 
@@ -1369,7 +1418,11 @@ void CLightingManager::RenderLights( const CViewSetup& view, CDeferredViewRender
 			data.iLOD = iVolumeLOD;
 #endif
 #if DEFCFG_CONFIGURABLE_VOLUMETRIC_LOD
+<<<<<<< HEAD
 				data.iSamples = Max( 1, l->iVolumeSamples );
+=======
+				data.iSamples = l->iVolumeSamples;
+>>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #endif
 				#pragma warning(suppress: 4456)
 				QUEUE_FIRE( CommitVolumeData, data );
