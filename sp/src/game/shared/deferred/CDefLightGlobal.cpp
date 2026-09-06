@@ -18,6 +18,7 @@ BEGIN_DATADESC( CDeferredLightGlobal )
 	DEFINE_KEYFIELD( m_str_Ambient_Low, FIELD_STRING, "ambient_low" ),
 
 	DEFINE_KEYFIELD( m_flFadeTime, FIELD_FLOAT, "fadetime" ),
+	DEFINE_KEYFIELD( m_flVolumetricsIntensity, FIELD_FLOAT, "volumetricsintensity" ),
 
 	DEFINE_FIELD( m_vecColor_Diff, FIELD_VECTOR ),
 	DEFINE_FIELD( m_vecColor_Ambient_High, FIELD_VECTOR ),
@@ -33,12 +34,14 @@ IMPLEMENT_NETWORKCLASS_DT( CDeferredLightGlobal, CDeferredLightGlobal_DT )
 	SendPropVector( SENDINFO( m_vecColor_Ambient_High ), 32 ),
 	SendPropVector( SENDINFO( m_vecColor_Ambient_Low ), 32 ),
 
+	SendPropFloat( SENDINFO( m_flVolumetricsIntensity ) ),
 	SendPropInt( SENDINFO( m_iDefFlags ), DEFLIGHTGLOBAL_FLAGS_MAX_SHARED_BITS, SPROP_UNSIGNED ),
 #else
 	RecvPropVector( RECVINFO( m_vecColor_Diff ) ),
 	RecvPropVector( RECVINFO( m_vecColor_Ambient_High ) ),
 	RecvPropVector( RECVINFO( m_vecColor_Ambient_Low ) ),
 
+	RecvPropFloat( RECVINFO( m_flVolumetricsIntensity ) ),
 	RecvPropInt( RECVINFO( m_iDefFlags ) ),
 #endif
 END_NETWORK_TABLE();
@@ -51,6 +54,7 @@ CDeferredLightGlobal::CDeferredLightGlobal()
 	__g_pGlobalLight = this;
 
 	m_iDefFlags = DEFLIGHTGLOBAL_ENABLED | DEFLIGHTGLOBAL_SHADOW_ENABLED;
+	m_flVolumetricsIntensity = 1.0f;
 #ifdef GAME_DLL
 	bGenerated = false;
 #endif
@@ -115,6 +119,7 @@ lightData_Global_t CDeferredLightGlobal::GetState()
 	Vector dir;
 	AngleVectors( GetAbsAngles(), &dir );
 	data.vecLight.Init( -dir );
+	data.flVolumetrics = HasVolumetrics() ? GetVolumetricsIntensity() : 0.0f;
 
 	if ( IsEnabled() &&
 		( data.diff.LengthSqr() > 0.01f ||

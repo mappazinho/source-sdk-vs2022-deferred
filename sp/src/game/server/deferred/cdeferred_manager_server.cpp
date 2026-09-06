@@ -368,6 +368,11 @@ void CDeferredManagerServer::LevelInitPreEntity()
 		if ( type == -1 || ( type == 3 && bCreatedGlobalLight ))
 			continue;
 
+		// Deferred extras from the merged stock entity keyvalues (deferred.fgd overrides).
+		const bool bDeferredShadow = entity->GetInt( "shadow", 1 ) != 0;
+		const bool bDeferredCookie = strlen( entity->GetString( "cookie", "" ) ) > 0;
+		const bool bDeferredVolumetrics = entity->GetInt( "volumetrics", ( type == 2 || type == 5 ) ? 1 : 0 ) != 0;
+
 		Vector pos;
 		QAngle rot;
 		UTIL_StringToVector( pos.Base(), entity->GetString( "origin" ) );
@@ -398,7 +403,10 @@ void CDeferredManagerServer::LevelInitPreEntity()
 			lightEntity->KeyValue( "diffuse", UTIL_VarArgs("%d %d %d %f", color[0], color[1], color[2], color[3] * ds ) );
 			lightEntity->KeyValue( "ambient_high", UTIL_VarArgs("%d %d %d %f", ambient[0], ambient[1], ambient[2], ambient[3] * ash ) );
 			lightEntity->KeyValue( "ambient_low", UTIL_VarArgs("%d %d %d %f", ambient[0], ambient[1], ambient[2], ambient[3] * asl ) );
-			lightEntity->KeyValue( "spawnflags", "3" );
+			const bool bGlobalVolumetrics = entity->GetInt( "volumetrics", 0 ) != 0;
+			lightEntity->KeyValue( "spawnflags", bGlobalVolumetrics ? "11" : "3" );
+			if ( bGlobalVolumetrics )
+				lightEntity->KeyValue( "volumetricsintensity", entity->GetFloat( "volumetricsintensity", 1.0f ) );
 
 			DispatchSpawn( lightEntity );
 
@@ -457,7 +465,24 @@ void CDeferredManagerServer::LevelInitPreEntity()
 			V_sprintf_safe( string, "%d %d %d %d", color[0], color[1], color[2], color[3] );
 		lightEntity->KeyValue( szParamDiffuse, string );
 
-		lightEntity->KeyValue( "spawnflags", type == 2 || type == 5 ? "11" : "3" );
+		// Build the deferred spawnflags from the merged entity's deferred options.
+		// 1 = enabled, 2 = shadow, 4 = cookie, 8 = volumetrics. Stock "Initially dark"
+		// (stock spawnflag 1) disables the deferred light instead.
+		const bool bInitiallyDark = ( entity->GetInt( "spawnflags", 0 ) & 1 ) != 0;
+		int iDeferredFlags = bInitiallyDark ? 0 : 1;
+		if ( bDeferredShadow )
+			iDeferredFlags |= 2;
+		if ( bDeferredCookie )
+			iDeferredFlags |= 4;
+		if ( bDeferredVolumetrics )
+			iDeferredFlags |= 8;
+		lightEntity->KeyValue( "spawnflags", UTIL_VarArgs( "%d", iDeferredFlags ) );
+
+		if ( bDeferredCookie )
+			lightEntity->KeyValue( GetLightParamName( LPARAM_COOKIETEX ), entity->GetString( "cookie", "" ) );
+
+		if ( bDeferredVolumetrics )
+			lightEntity->KeyValue( szParamVolumeSamples, 50 );
 		if ( type == 1 || type == 5 )
 		{
 			lightEntity->KeyValue( szParamLightType, "1" );

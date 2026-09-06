@@ -1983,6 +1983,31 @@ void CDeferredViewRender::PerformLighting( const CViewSetup &view )
 
 	GetLightingManager()->RenderLights( lightingView, this );
 
+	// Global light volumetrics: march the view ray through the cascade shadow maps and
+	// accumulate sun scattering into the volumetric buffer, feeding the same blur+blend
+	// pipeline as the per-light volumetrics.
+	{
+		const lightData_Global_t& volState = GetActiveGlobalLightState();
+		if ( volState.bEnabled && volState.bShadow && volState.flVolumetrics > 0.0f &&
+			!GetLightingEditor()->IsEditorLightingActive() )
+		{
+			ITexture *pVolumBuffer = GetDefRT_VolumetricsBuffer( 0 );
+
+			CMatRenderContextPtr pVolumContext( materials );
+			pVolumContext->PushRenderTargetAndViewport( pVolumBuffer );
+
+			// NOTE: no clear - the buffer already holds the per-light volumetrics and this
+			// pass accumulates into it additively.
+			pVolumContext->DrawScreenSpaceRectangle(
+				GetDeferredManager()->GetDeferredMaterial( DEF_MAT_LIGHT_VOLUME_GLOBAL ),
+				0, 0, lightingView.width / 4, lightingView.height / 4,
+				0, 0, lightingView.width / 4 - 1.0f, lightingView.height / 4 - 1.0f,
+				lightingView.width / 4, lightingView.height / 4 );
+
+			pVolumContext->PopRenderTargetAndViewport();
+		}
+	}
+
 	if ( bRadiosityEnabled )
 		EndRadiosity( view );
 

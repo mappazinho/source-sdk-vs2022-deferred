@@ -34,6 +34,8 @@ public:
 	inline bool IsEnabled();
 	inline bool HasShadow();
 	inline bool ShouldFade();
+	inline bool HasVolumetrics();
+	inline float GetVolumetricsIntensity();
 
 private:
 
@@ -48,6 +50,7 @@ private:
 	CNetworkVector( m_vecColor_Ambient_Low );
 
 	float m_flFadeTime;
+	CNetworkVar( float, m_flVolumetricsIntensity );
 	CNetworkVar( int, m_iDefFlags );
 	
 #ifdef GAME_DLL
@@ -91,6 +94,16 @@ bool CDeferredLightGlobal::HasShadow()
 bool CDeferredLightGlobal::ShouldFade()
 {
 	return ( m_iDefFlags & DEFLIGHTGLOBAL_TRANSITION_FADE ) != 0;
+}
+
+bool CDeferredLightGlobal::HasVolumetrics()
+{
+	return ( m_iDefFlags & DEFLIGHTGLOBAL_VOLUMETRICS_ENABLED ) != 0;
+}
+
+float CDeferredLightGlobal::GetVolumetricsIntensity()
+{
+	return m_flVolumetricsIntensity;
 }
 
 #endif

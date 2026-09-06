@@ -66,6 +66,7 @@ $Project
 		$File	"defpass_shadow.cpp"
 		$File	"IDeferredExt.cpp"
 		$File	"lighting_global.cpp"
+		$File	"lighting_volume_global.cpp"
 		$File	"lighting_pass_basic.cpp"
 		$File	"lighting_pass_volum.cpp"
 		$File	"lighting_volume.cpp"

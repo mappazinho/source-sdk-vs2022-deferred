@@ -21,12 +21,14 @@ struct lightData_Global_t
 		diff.Init();
 		ambh.Init();
 		ambl.Init();
+		flVolumetrics = 0.0f;
 	};
 
 	Vector4D diff, ambh, ambl;
 	bool bEnabled;
 	bool bShadow;
 	Vector4D vecLight;
+	float flVolumetrics;
 
 	// client logic
 	float flFadeTime;

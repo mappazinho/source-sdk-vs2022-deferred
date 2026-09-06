@@ -274,6 +274,7 @@ void CDeferredManagerClient::InitializeDeferredMaterials()
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_SPOT_WORLD ] = materials->FindMaterial( "deferred/lightpass_spot_v", NULL );
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_PREPASS ] = materials->FindMaterial( "deferred/volume_prepass", NULL );
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_BLEND ] = materials->FindMaterial( "deferred/volume_blend", NULL );
+	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] = materials->FindMaterial( "deferred/volume_global", NULL );
 
 #if DEFCFG_ENABLE_RADIOSITY == 1
 	/*

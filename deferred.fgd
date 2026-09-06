@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @include "base.fgd"
 
 @PointClass base(Targetname, Parentname, Angles) iconsprite("editor/light.vmt") sphere(radius) = light_deferred
@@ -48,67 +47,78 @@
 		1 	: "Enabled" : 1
 		2 	: "Enable shadow" : 1
 		4 	: "Enable transitions" : 1
+		8 	: "Enable volumetrics" : 0
 	]
 	diffuse(color255) : "Color diffuse" : "255 255 255 255" : ""
 	ambient_high(color255) : "Color ambient high" : "20 40 80 255" : ""
 	ambient_low(color255) : "Color ambient low" : "40 20 10 255" : ""
 
 	fadetime(float) : "Fade interval time" : "1.0" : ""
-=======
-@include "base.fgd"
+	volumetricsintensity(float) : "Global volumetrics intensity" : "1.0" : ""
+]
+// ============================================================================
+// DEFERRED LIGHTING: MERGED STOCK ENTITIES
+// The stock lights drive the deferred lighting system at runtime. These
+// redefinitions add the deferred-specific options to the familiar stock ones.
+// ============================================================================
 
-@PointClass base(Targetname, Parentname, Angles) iconsprite("editor/light.vmt") sphere(radius) = light_deferred
+@PointClass light() iconsprite("editor/light.vmt") base(Targetname, Light) sphere(_fifty_percent_distance) sphere(_zero_percent_distance) = light :
+	"An invisible omnidirectional lightsource. Rendered by the deferred lighting system."
 [
-	spawnflags(flags) =
+	target(target_destination) : "Entity To Point At" : : "The name of an entity in the map that the spotlight will point at. This will override the spotlight's angles."
+	spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
+	_distance(integer) : "Maximum Distance" : 0 : "This is the distance that light is allowed to cast, in inches."
+	shadow(choices) : "Deferred shadow" : 1 : "Casts dynamic deferred shadows." =
 	[
-		1 	: "Enabled" : 1
-		2 	: "Enable shadow" : 0
-		4 	: "Enable cookie" : 0
-		8 	: "Enable volumetrics" : 0
-		16	: "Enable lightstyle" : 0
+		0 : "No"
+		1 : "Yes"
 	]
-
-	light_type(Choices) : "Light type" : 0 : "" =
+	volumetrics(choices) : "Deferred volumetrics" : 0 : "Enables volumetric light shafts for this light." =
 	[
-		0 : "Point"
-		1 : "Spot"
+		0 : "No"
+		1 : "Yes"
 	]
-
-	diffuse(color255) : "Color diffuse" : "255 255 255 255" : ""
-	ambient(color255) : "Color ambient" : "10 10 10 255" : ""
-
-	radius(float) : "Radius" : "256.0" : ""
-	power(float) : "Falloff power" : "2.0" : ""
-
-	spot_cone_inner(float) : "Spotlight cone inner" : "35.0" : ""
-	spot_cone_outer(float) : "Spotlight cone outer" : "45.0" : ""
-
-	vis_dist(integer) : "Visible distance" : 2048 : ""
-	vis_range(integer) : "Visible fade range" : 512 : ""
-	shadow_dist(integer) : "Shadow distance" : 1536 : ""
-	shadow_range(integer) : "Shadow fade range" : 512 : ""
-
-	cookietex(string) : "Cookie texture" : : "Path to vtf or vgui projectable factory name."
-
-	style_seed(integer) : "Lightstyle seed" : -1 : ""
-	style_amt(float) : "Lightstyle amount" : "0.5" : ""
-	style_speed(float) : "Lightstyle speed" : "0.3" : ""
-	style_smooth(float) : "Lightstyle smoothing" : "0.5" : ""
-	style_random(float) : "Lightstyle random" : "0.5" : ""
+	cookie(string) : "Deferred cookie" : : "Cookie texture (projectable) for the deferred light."
 ]
 
-@PointClass base(Targetname, Angles) iconsprite("editor/light_env.vmt") = light_deferred_global
+@PointClass base(Targetname, Angles, Light) lightprop("models/editor/spot.mdl") lightcone() sphere(_fifty_percent_distance) sphere(_zero_percent_distance) = light_spot :
+	"An invisible and directional spotlight. Rendered by the deferred lighting system."
 [
-	spawnflags(flags) =
+	target(target_destination) : "Entity To Point At" : : "The name of an entity in the map that the spotlight will point at. This will override the spotlight's angles."
+	_inner_cone(integer) : "Inner (bright) angle" : 30
+	_cone(integer) : "Outer (fading) angle" : 45
+	_exponent(integer) : "Focus" : 1
+	_distance(integer) : "Maximum distance" : 0 : "This is the distance that light is allowed to cast, in inches."
+	pitch(angle_negative_pitch) : "Pitch" : -90
+	spawnflags(Flags) = [ 1 : "Initially dark" : 0 ]
+	shadow(choices) : "Deferred shadow" : 1 : "Casts dynamic deferred shadows." =
 	[
-		1 	: "Enabled" : 1
-		2 	: "Enable shadow" : 1
-		4 	: "Enable transitions" : 1
+		0 : "No"
+		1 : "Yes"
 	]
-	diffuse(color255) : "Color diffuse" : "255 255 255 255" : ""
-	ambient_high(color255) : "Color ambient high" : "20 40 80 255" : ""
-	ambient_low(color255) : "Color ambient low" : "40 20 10 255" : ""
+	volumetrics(choices) : "Deferred volumetrics" : 0 : "Enables volumetric light shafts for this light." =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	cookie(string) : "Deferred cookie" : : "Cookie texture (projectable) for the deferred light."
+]
 
-	fadetime(float) : "Fade interval time" : "1.0" : ""
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
+@PointClass base(Angles) iconsprite("editor/light_env.vmt") = light_environment :
+	"Sets the color and angle of the light from the sun and sky. Rendered by the deferred lighting system."
+[
+	pitch(integer) : "Pitch" : 0 : "The downward pitch of the light from the sun. 0 is horizontal, -90 is straight down."
+	_light(color255) : "Brightness" : "255 255 255 200"
+	_ambient(color255) : "Ambient" : "255 255 255 20"
+	_lightHDR(color255) : "BrightnessHDR" : "-1 -1 -1 1"
+	_lightscaleHDR(float) : "BrightnessScaleHDR" : "1" : "Amount to scale the light by when compiling for HDR."
+	_ambientHDR(color255) : "AmbientHDR" : "-1 -1 -1 1"
+	_AmbientScaleHDR(float) : "AmbientScaleHDR" : "1" : "Amount to scale the ambient light by when compiling for hdr."
+	SunSpreadAngle(float) : "SunSpreadAngle" : 0 : "The angular extent of the sun for casting soft shadows. Higher numbers are more diffuse. 5 is a good starting value."
+	volumetrics(choices) : "Enable volumetrics" : 0 : "Enables volumetric light shafts for the sun." =
+	[
+		0 : "No"
+		1 : "Yes"
+	]
+	volumetricsintensity(float) : "Global volumetrics intensity" : "1.0" : "Intensity of the global volumetric light shafts."
 ]

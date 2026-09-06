@@ -1,0 +1,97 @@
+
+// DYNAMIC:		"HAS_SHADOW"		"0..1"
+
+#include "common_ps_fxc.h"
+#include "common_deferred_fxc.h"
+
+sampler sDepth							: register( s1 );
+sampler sShadowDepth					: register( s2 );
+
+const float3 g_vecViewOrigin			: register( c0 );
+const float3 g_vecLightVec_Forward		: register( c1 );
+
+const float4x3 g_matOrtho[2]			: register( c2 );
+const float4 g_vecUVTransform[2]		: register( c8 );
+const float3 g_vecSlopeData[2]			: register( c10 );
+const float4 g_vecFilterConfig_A[2]		: register( c12 );
+const float4 g_vecFilterConfig_B[2]		: register( c14 );
+
+const float3 g_light_diffuse			: register( c16 );
+const float4 g_vecVolumParams			: register( c19 ); // x: intensity, y: density
+
+struct PS_INPUT
+{
+	float2 vTexCoord				: TEXCOORD0;
+	float3 vecWorldRay				: TEXCOORD1;
+};
+
+struct PS_OUTPUT
+{
+	float4 vColor_0					:	COLOR0;
+};
+
+#define VOLUM_GLOBAL_STEPS 12
+
+// Cascaded shadow lookup for a volumetric sample. Unlike the surface version,
+// samples outside every cascade contribute NOTHING (no sun reaches them).
+float VolumGlobalShadow( float3 worldPos, float3 vecNormal, float viewFwdDot )
+{
+	float3 uvz0 = ToShadowSpace_Ortho( worldPos, viewFwdDot, vecNormal, g_vecSlopeData[0], g_matOrtho[0] );
+	float3 uvz1 = ToShadowSpace_Ortho( worldPos, viewFwdDot, vecNormal, g_vecSlopeData[1], g_matOrtho[1] );
+
+	float outB0 = any( floor( ( uvz0.xyz - 0.0015f ) * 1.003f ) );
+	float outB1 = any( floor( ( uvz1.xyz - 0.003f ) * 1.006f ) );
+
+	if ( outB0 != 0 && outB1 != 0 )
+		return 0;
+
+	float3 uvz = outB0 ? uvz1 : uvz0;
+	float sel = outB0 ? 1 : 0;
+
+	uvz.xy = uvz.xy * g_vecUVTransform[sel].zw + g_vecUVTransform[sel].xy;
+
+	float shadowmapDepth = tex2D( sShadowDepth, uvz.xy ).x;
+	float flReceiver = uvz.z;
+
+	return saturate( ceil( shadowmapDepth - flReceiver + 0.0008f ) );
+}
+
+PS_OUTPUT main( const PS_INPUT In )
+{
+	PS_OUTPUT Out = ( PS_OUTPUT )0;
+
+	float flDepth = tex2D( sDepth, In.vTexCoord ).x;
+
+	clip( flDepth - 0.1f );
+
+	float3 worldEnd = g_vecViewOrigin + In.vecWorldRay * flDepth;
+	float3 worldDelta = worldEnd - g_vecViewOrigin;
+	float flDist = length( worldDelta );
+	float3 worldDir = worldDelta / flDist;
+
+	float flIntensity = g_vecVolumParams.x;
+	float flDensity = g_vecVolumParams.y;
+
+	float3 upNormal = float3( 0, 0, 1 );
+	float viewFwdDot = dot( g_vecLightVec_Forward.xyz, upNormal );
+
+	float3 acc = 0;
+
+	const int STEPS = VOLUM_GLOBAL_STEPS;
+	float flStep = flDist / STEPS;
+
+	for ( int s = 0; s < STEPS; s++ )
+	{
+		float t = ( s + 0.5f ) * flStep;
+		float3 samplePos = g_vecViewOrigin + worldDir * t;
+
+		float shadowMult = VolumGlobalShadow( samplePos, upNormal, viewFwdDot );
+
+		acc += g_light_diffuse * shadowMult * flDensity;
+	}
+
+	acc *= flIntensity * ( flStep / 1000.0f ); // scale with step size so density is per-world-unit
+
+	Out.vColor_0 = float4( acc, 1 );
+	return Out;
+}
