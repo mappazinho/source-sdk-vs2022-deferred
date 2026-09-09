@@ -77,12 +77,9 @@
 // Projective textures
 #include "C_Env_Projected_Texture.h"
 
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 #include "igameui2.h"
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -227,11 +224,8 @@ CON_COMMAND( r_cheapwaterend,  "" )
 	}
 }
 
-<<<<<<< HEAD
 
 //already mentioned in viewrender.h
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 /*
 //-----------------------------------------------------------------------------
 // Describes a pruned set of leaves to be rendered this view. Reference counted
@@ -950,10 +944,7 @@ CViewRender::CViewRender()
 	m_BaseDrawFlags = 0;
 	m_pActiveRenderer = NULL;
 	m_pCurrentlyDrawingEntity = NULL;
-<<<<<<< HEAD
 	m_HasPrevViewSetup = false;
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 
@@ -1921,7 +1912,6 @@ void CViewRender::FreezeFrame( float flFreezeTime )
 
 const char *COM_GetModDirectory();
 
-<<<<<<< HEAD
 ConVar r_camera_cinematic("r_camera_cinematic", "1", FCVAR_CLIENTDLL);
 ConVar r_camera_cinematic_lag_origin("r_camera_cinematic_lag_origin", "0", FCVAR_CLIENTDLL);
 ConVar r_camera_cinematic_lag_origin_amount("r_camera_cinematic_lag_origin_amount", "0.025", FCVAR_CLIENTDLL);
@@ -1958,8 +1948,6 @@ void CViewRender::GetSmoothedView( const CViewSetup &view, CViewSetup &pSmoothed
 		m_PrevViewSetup = pSmoothedView;
 	}
 }
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 //-----------------------------------------------------------------------------
 // Purpose: This renders the entire 3D view and the in-game hud/viewmodel
@@ -1967,7 +1955,6 @@ void CViewRender::GetSmoothedView( const CViewSetup &view, CViewSetup &pSmoothed
 //			whatToDraw - 
 //-----------------------------------------------------------------------------
 // This renders the entire 3D view.
-<<<<<<< HEAD
 void CViewRender::RenderView( const CViewSetup &tmpview, int nClearFlags, int whatToDraw )
 {
 	m_UnderWaterOverlayMaterial.Shutdown();					// underwater view will set
@@ -1976,11 +1963,6 @@ void CViewRender::RenderView( const CViewSetup &tmpview, int nClearFlags, int wh
 	GetSmoothedView( tmpview, view );
 
 	CViewSetup tmpViewmodelView = view;
-=======
-void CViewRender::RenderView( const CViewSetup &view, int nClearFlags, int whatToDraw )
-{
-	m_UnderWaterOverlayMaterial.Shutdown();					// underwater view will set
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	m_CurrentView = view;
 
@@ -2109,13 +2091,9 @@ void CViewRender::RenderView( const CViewSetup &view, int nClearFlags, int whatT
 		GetClientModeNormal()->DoPostScreenSpaceEffects( &view );
 
 		// Now actually draw the viewmodel
-<<<<<<< HEAD
 		// DrawViewModels( view, whatToDraw & RENDERVIEW_DRAWVIEWMODEL );
 		DrawViewModels((r_camera_cinematic_viewmodel_fix.GetBool()) ? tmpViewmodelView : view,
 			whatToDraw & RENDERVIEW_DRAWVIEWMODEL);
-=======
-		DrawViewModels( view, whatToDraw & RENDERVIEW_DRAWVIEWMODEL );
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 		DrawUnderwaterOverlay();
 
@@ -2252,7 +2230,6 @@ void CViewRender::RenderView( const CViewSetup &view, int nClearFlags, int whatT
 		saveRenderTarget = g_pSourceVR->GetRenderTarget( (ISourceVirtualReality::VREye)(view.m_eStereoEye - 1), ISourceVirtualReality::RT_Color );
 	}
 
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 	{
@@ -2275,8 +2252,6 @@ void CViewRender::RenderView( const CViewSetup &view, int nClearFlags, int whatT
 		}
 	}
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	// Draw the 2D graphics
 	render->Push2DView( view, 0, saveRenderTarget, GetFrustum() );
 
@@ -2440,10 +2415,7 @@ void CViewRender::RenderView( const CViewSetup &view, int nClearFlags, int whatT
 
 	render->PopView( GetFrustum() );
 	g_WorldListCache.Flush();
-<<<<<<< HEAD
 	m_PrevViewSetup = view;
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 //-----------------------------------------------------------------------------

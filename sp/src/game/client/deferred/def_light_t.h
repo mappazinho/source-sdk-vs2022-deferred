@@ -131,13 +131,9 @@ struct def_light_t
 	};
 	FORCEINLINE bool HasVolumetrics()
 	{
-<<<<<<< HEAD
 		// Spot volumetrics depend on the shadowed spotlight path in this renderer.
 		// Force spots to behave as volumetric-enabled so map flag mismatches don't disable them.
 		return IsSpot() || ( ( iFlags & DEFLIGHT_VOLUMETRICS_ENABLED ) != 0 );
-=======
-		return ( iFlags & DEFLIGHT_VOLUMETRICS_ENABLED ) != 0;
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	};
 	FORCEINLINE bool HasLightstyle()
 	{
@@ -146,12 +142,8 @@ struct def_light_t
 
 	FORCEINLINE bool ShouldRenderShadow()
 	{
-<<<<<<< HEAD
 		// Volumetric spotlights require projected shadow data in the current shader path.
 		return ( HasShadow() || HasVolumetrics() ) && flShadowFade < 1;
-=======
-		return HasShadow() && flShadowFade < 1;
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	};
 
 	bool IsCookieReady();
@@ -244,8 +236,4 @@ struct def_light_temp_t : public def_light_t
 	float fDecay;
 };
 
-<<<<<<< HEAD
 #endif
-=======
-#endif
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

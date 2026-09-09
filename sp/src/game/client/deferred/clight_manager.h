@@ -7,11 +7,6 @@ class CDeferredViewRender;
 struct def_light_presortdatax4_t;
 #endif
 
-<<<<<<< HEAD
-=======
-extern ConVar r_deferred_light_visleaf_cull;
-
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 class CLightingManager : public CAutoGameSystemPerFrame
 {
 	typedef CAutoGameSystemPerFrame BaseClass;
@@ -130,8 +125,4 @@ private:
 
 extern CLightingManager *GetLightingManager();
 
-<<<<<<< HEAD
 #endif
-=======
-#endif
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

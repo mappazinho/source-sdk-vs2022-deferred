@@ -169,13 +169,10 @@ extern vgui::IInputInternal *g_InputInternal;
 #include "sixense/in_sixense.h"
 #endif
 
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 #include "igameui2.h"
 #endif // GAMEUI2
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #include "deferred/deferred_shared_common.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
@@ -224,13 +221,10 @@ IEngineClientReplay *g_pEngineClientReplay = NULL;
 IReplaySystem *g_pReplay = NULL;
 #endif
 
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 IGameUI2* GameUI2 = nullptr;
 #endif // GAMEUI2
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 IHaptics* haptics = NULL;// NVNT haptics system interface singleton
 
 //=============================================================================
@@ -1168,7 +1162,6 @@ void CHLClient::PostInit()
 		}
 	}
 #endif
-<<<<<<< HEAD
 
 #if defined(GAMEUI2)
 	if (CommandLine()->FindParm("-nogameui2") == 0)
@@ -1210,8 +1203,6 @@ void CHLClient::PostInit()
 		}
 	}
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 //-----------------------------------------------------------------------------
@@ -1252,7 +1243,6 @@ void CHLClient::Shutdown( void )
 	UncacheAllMaterials();
 
 	IGameSystem::ShutdownAllSystems();
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 	{
@@ -1260,8 +1250,6 @@ void CHLClient::Shutdown( void )
 		GameUI2->Shutdown();
 	}
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	
 	gHUD.Shutdown();
 	VGui_Shutdown();
@@ -1358,13 +1346,10 @@ void CHLClient::HudUpdate( bool bActive )
 		g_pSixenseInput->SixenseFrame( 0, NULL ); 
 	}
 #endif
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 		GameUI2->OnUpdate();
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 //-----------------------------------------------------------------------------
@@ -1711,13 +1696,10 @@ void CHLClient::LevelInitPreEntity( char const* pMapName )
 		CReplayRagdollRecorder::Instance().Init();
 	}
 #endif
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 		GameUI2->OnLevelInitializePreEntity();
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 
@@ -1729,13 +1711,10 @@ void CHLClient::LevelInitPostEntity( )
 	IGameSystem::LevelInitPostEntityAllSystems();
 	C_PhysPropClientside::RecreateAll();
 	internalCenterPrint->Clear();
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 		GameUI2->OnLevelInitializePostEntity();
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 //-----------------------------------------------------------------------------
@@ -1804,13 +1783,10 @@ void CHLClient::LevelShutdown( void )
 	
 	StopAllRumbleEffects();
 
-<<<<<<< HEAD
 #if defined(GAMEUI2)
 	if (GameUI2 != nullptr)
 		GameUI2->OnLevelShutdown();
 #endif // GAMEUI2
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	gHUD.LevelShutdown();
 
 	internalCenterPrint->Clear();

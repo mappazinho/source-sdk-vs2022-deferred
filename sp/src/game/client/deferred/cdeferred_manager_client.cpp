@@ -584,11 +584,8 @@ void CDeferredManagerClient::ShutdownDeferredMaterials()
 
 void CDeferredManagerClient::LevelInitPreEntity()
 {
-<<<<<<< HEAD
 	g_DeferredMaterialSystem.MarkLevelLoadForOneLightmapRedownload();
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 	const int lumpSize = engine->GameLumpSize( GAMELUMP_DEFERRED_LIGHTS );
 	if ( !lumpSize || engine->GameLumpVersion( GAMELUMP_DEFERRED_LIGHTS ) != GAMELUMP_DEFERRED_LIGHTS_VERSION )
 		return;
@@ -609,8 +606,4 @@ void CDeferredManagerClient::LevelInitPreEntity()
 void CDeferredManagerClient::LevelShutdownPostEntity()
 {
 
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0

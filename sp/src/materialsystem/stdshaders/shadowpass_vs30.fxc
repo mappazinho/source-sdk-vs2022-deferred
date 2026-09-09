@@ -166,11 +166,7 @@ VS_OUTPUT main( const VS_INPUT In )
 #else
 
 	float viewFwdDot = abs( dot( g_vecShadowForward, worldNormal ) );
-<<<<<<< HEAD
 	worldPos += g_vecShadowForward * lerp( SLOPESCALE_MAX, SLOPESCALE_MIN, viewFwdDot );
-=======
-	worldPos += ( worldPos - g_vecOrigin ) * lerp( SLOPESCALE_MAX, SLOPESCALE_MIN, viewFwdDot );
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	Out.vProjPos = mul( float4( worldPos, 1 ), cViewProj );
 

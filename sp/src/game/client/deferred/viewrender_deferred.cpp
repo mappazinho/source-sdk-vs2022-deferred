@@ -1571,13 +1571,9 @@ void CSpotLightShadowView::CommitData()
 	data.vecOrigin.Init( origin );
 	// slope min, slope max, normal max, depth
 	//data.data.vecSlopeSettings.Init( 0.005f, 0.02f, 3, zFar );
-<<<<<<< HEAD
 	
 	// setting slope min max to 0 fixes a weird artifacting bug with the lighting...
 	data.vecSlopeSettings.Init( 0.0f, 0.0f, 3, 0 );
-=======
-	data.vecSlopeSettings.Init( 0.001f, 0.005f, 3, 0 );
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	QUEUE_FIRE( CommitShadowData_Proj, m_iIndex, data );
 
@@ -2539,12 +2535,8 @@ void CDeferredViewRender::RenderView( const CViewSetup &view, int nClearFlags, i
 {
 	m_UnderWaterOverlayMaterial.Shutdown();					// underwater view will set
 
-<<<<<<< HEAD
 	CViewSetup worldView;
 	GetSmoothedView( view, worldView );
-=======
-	CViewSetup worldView = view;
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 
 	CLightingEditor *pLightEditor = GetLightingEditor();
 

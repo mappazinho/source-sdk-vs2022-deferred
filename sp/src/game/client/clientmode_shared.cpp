@@ -65,7 +65,6 @@ extern ConVar replay_rendersetting_renderglow;
 #include "econ_item_description.h"
 #endif
 
-<<<<<<< HEAD
 #define NEW_LOADING_SCREENS
 
 #if defined (NEW_LOADING_SCREENS)
@@ -73,8 +72,6 @@ extern ConVar replay_rendersetting_renderglow;
 #include "loadingscreens/ILoadingBackground.h"
 #endif
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -86,7 +83,6 @@ class CHudVote;
 
 static vgui::HContext s_hVGuiContext = DEFAULT_VGUI_CONTEXT;
 
-<<<<<<< HEAD
 #if defined (NEW_LOADING_SCREENS)
 // Fenix: Needed for the custom background loading screens
 // this ensures that we actually Sys_UnloadModule the dll and that we don't call Sys_LoadModule 
@@ -94,8 +90,6 @@ static vgui::HContext s_hVGuiContext = DEFAULT_VGUI_CONTEXT;
 static CDllDemandLoader g_GameUI("GameUI");
 #endif
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 ConVar cl_drawhud( "cl_drawhud", "1", FCVAR_CHEAT, "Enable the rendering of the hud" );
 ConVar hud_takesshots( "hud_takesshots", "0", FCVAR_CLIENTDLL | FCVAR_ARCHIVE, "Auto-save a scoreboard screenshot at the end of a map." );
 ConVar hud_freezecamhide( "hud_freezecamhide", "0", FCVAR_CLIENTDLL | FCVAR_ARCHIVE, "Hide the HUD during freeze-cam" );
@@ -106,14 +100,11 @@ extern ConVar voice_modenable;
 
 extern bool IsInCommentaryMode( void );
 
-<<<<<<< HEAD
 #if defined (NEW_LOADING_SCREENS)
 // Fenix: Needed for the custom background loading screens
 CMapLoadBG *pPanelBg;
 #endif
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #ifdef VOICE_VOX_ENABLE
 void VoxCallback( IConVar *var, const char *oldString, float oldFloat )
 {
@@ -305,14 +296,11 @@ ClientModeShared::ClientModeShared()
 	m_pWeaponSelection = NULL;
 	m_nRootSize[ 0 ] = m_nRootSize[ 1 ] = -1;
 
-<<<<<<< HEAD
 #if defined (NEW_LOADING_SCREENS)
 	//Fenix: Needed for the custom background loading screens
 	pPanelBg = NULL;
 #endif
 
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #if defined( REPLAY_ENABLED )
 	m_pReplayReminderPanel = NULL;
 	m_flReplayStartRecordTime = 0.0f;
@@ -402,7 +390,6 @@ void ClientModeShared::Init()
 
 	HOOK_MESSAGE( VGUIMenu );
 	HOOK_MESSAGE( Rumble );
-<<<<<<< HEAD
 
 #if defined (NEW_LOADING_SCREENS)
 	//Fenix: Custom background loading screens - Injects the custom panel at the loading screen
@@ -424,8 +411,6 @@ void ClientModeShared::Init()
 		}
 	}
 #endif
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 }
 
 

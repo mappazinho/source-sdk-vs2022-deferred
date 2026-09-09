@@ -26,13 +26,10 @@
 #include "portal_util_shared.h"
 #endif
 
-<<<<<<< HEAD
 #define NEW_LOADING_SCREENS
 #if defined (NEW_LOADING_SCREENS)
 #include <string>
 #endif
-=======
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 //-----------------------------------------------------------------------------
 // Forward declarations
 //-----------------------------------------------------------------------------
@@ -607,11 +604,7 @@ bool				UTIL_IsHolidayActive( /*EHoliday*/ int eHoliday );
 // holidays overlapping, the list order will act as priority.
 const char		   *UTIL_GetActiveHolidayString();
 
-<<<<<<< HEAD
 #if defined NEW_LOADING_SCREENS // Obsidian Conflict Team code
 std::string UTIL_GetCurrentMap(bool bFullPath = false);
 #endif
-=======
-
->>>>>>> 3923b343f72dccd8c59026259149fbb31e60d3b0
 #endif // UTIL_SHARED_H
