@@ -268,6 +268,10 @@ void CDeferredManagerClient::InitializeDeferredMaterials()
 		m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_BLEND ]->SaveToFile( filesystem, "materials/deferred/volume_blend.vmt", "MOD" );
 	}
 
+	m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] = new KeyValues( "LIGHTING_VOLUME_GLOBAL" );
+	if ( m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] != NULL )
+		m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ]->SaveToFile( filesystem, "materials/deferred/volume_global.vmt", "MOD" );
+
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_POINT_FULLSCREEN ] = materials->FindMaterial( "deferred/lightpass_point_vfs", NULL );
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_POINT_WORLD ] = materials->FindMaterial( "deferred/lightpass_point_v", NULL );
 	m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_SPOT_FULLSCREEN ] = materials->FindMaterial( "deferred/lightpass_spot_vfs", NULL );
@@ -454,6 +458,10 @@ void CDeferredManagerClient::InitializeDeferredMaterials()
 		m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_SPOT_WORLD ]->SetInt( "$LIGHTTYPE", DEFLIGHTTYPE_SPOT );
 		m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_SPOT_WORLD ] = materials->CreateMaterial( "__lightpass_spot_v", m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_SPOT_WORLD ] );
 	}
+
+	m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] = new KeyValues( "LIGHTING_VOLUME_GLOBAL" );
+	if ( m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] != NULL )
+		m_pMat_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] = materials->CreateMaterial( "__volume_global", m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_GLOBAL ] );
 
 	m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_PREPASS ] = new KeyValues( "VOLUME_PREPASS" );
 	if ( m_pKV_Def[ DEF_MAT_LIGHT_VOLUME_PREPASS ] != NULL )
