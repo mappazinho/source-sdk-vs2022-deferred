@@ -24,6 +24,8 @@ $Project "Client (Episodic)"
 	$Folder	"Source Files"
 	{
 		$File	"hud_chat.cpp"
+		$File	"loadingscreens/ILoadingBackground.cpp"
+		$File	"loadingscreens/ILoadingBackground.h"
 		$File	"c_team_objectiveresource.cpp"
 		$File	"c_team_objectiveresource.h"
 

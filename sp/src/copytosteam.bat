@@ -1,7 +1,7 @@
 @echo off
 rem ============================================================================
 rem copytosteam.bat
-rem Copies the freshly built deferred mod (mod_episodic) into the Steam install
+rem Deploys the freshly built deferred mod (mod_episodic) into the Steam install
 rem so it can be run directly from Steam. Adjust the variables below to match
 rem your machine, then run this after a successful build.
 rem ============================================================================
@@ -9,46 +9,37 @@ rem ============================================================================
 setlocal
 
 rem --- Root of your Steam library that contains sourcemods -------------------
-set STEAM_LIBRARY=D:\SteamLibrary
+set STEAM_LIBRARY=C:\Program Files (x86)\Steam
 
-rem --- Mod folder inside the Steam library (sourcesdk or a mod install) ------
+rem --- Mod folder inside the Steam library (sourcemods install) --------------
 set DEST=%STEAM_LIBRARY%\steamapps\sourcemods\mod_episodic
 
 rem --- Built mod folder in this repository -----------------------------------
 set SRC=%~dp0..\game\mod_episodic
 
-rem --- Build output folders (Release by default; change to Debug_*) ---------
-set CLIENT_DLL=%~dp0game\client\Release_mod_episodic\client.dll
-set SERVER_DLL=%~dp0game\server\Release_mod_episodic\server.dll
-set SHADER_DLL=%~dp0materialsystem\stdshaders\Release_dx9_mod_episodic\game_shader_dx9.dll
-set GAMEUI_DLL=%~dp0game\gameui2\Release_mod_episodic\gameui2.dll
+echo Deploying %SRC% -^> %DEST%
+echo.
 
-if not exist "%DEST%" (
-    echo Destination "%DEST%" does not exist.
-    echo Edit the variables at the top of this script and try again.
+if not exist "%SRC%\gameinfo.txt" (
+    echo ERROR: %SRC%\gameinfo.txt not found. Is this the right source mod?
     exit /b 1
 )
 
-echo Copying %SRC% -^> %DEST%
+rem --- Create the destination and its bin folder -----------------------------
+if not exist "%DEST%" mkdir "%DEST%"
+if not exist "%DEST%\bin" mkdir "%DEST%\bin"
 
-rem --- Compiled shaders ------------------------------------------------------
-if exist "%SRC%\shaders\fxc" (
-    robocopy "%SRC%\shaders\fxc" "%DEST%\shaders\fxc" /E /NFL /NDL /NJH /NJS >nul
-)
+rem --- Copy everything except PDBs, saves and runtime stats ------------------
+robocopy "%SRC%" "%DEST%" /E /XD "%SRC%\save" /XF *.pdb demoheader.tmp detail.vbsp ep1_gamestats.dat Gamestate.txt modelsounds.cache stats.txt voice_ban.dt /NFL /NDL /NJH /NJS >nul
 
-rem --- Materials, resource, scripts, cfg ------------------------------------
-for %%D in (materials resource scripts cfg maps) do (
-    if exist "%SRC%\%%D" (
-        robocopy "%SRC%\%%D" "%DEST%\%%D" /E /NFL /NDL /NJH /NJS >nul
-    )
-)
+rem --- Re-copy the freshly built DLLs to guarantee latest bits ---------------
+copy /y "%SRC%\bin\client.dll" "%DEST%\bin\client.dll" >nul
+copy /y "%SRC%\bin\server.dll" "%DEST%\bin\server.dll" >nul
+copy /y "%SRC%\bin\game_shader_dx9.dll" "%DEST%\bin\game_shader_dx9.dll" >nul
+copy /y "%SRC%\bin\gameui2.dll" "%DEST%\bin\gameui2.dll" >nul
 
-rem --- Built DLLs ------------------------------------------------------------
-if exist "%CLIENT_DLL%" copy /y "%CLIENT_DLL%" "%DEST%\bin\client.dll" >nul
-if exist "%SERVER_DLL%" copy /y "%SERVER_DLL%" "%DEST%\bin\server.dll" >nul
-if exist "%SHADER_DLL%" copy /y "%SHADER_DLL%" "%DEST%\bin\game_shader_dx9.dll" >nul
-if exist "%GAMEUI_DLL%" copy /y "%GAMEUI_DLL%" "%DEST%\bin\gameui2.dll" >nul
-
-echo Done.
+echo.
+echo Done. Deployed mod to %DEST%
 endlocal
 exit /b 0
+
